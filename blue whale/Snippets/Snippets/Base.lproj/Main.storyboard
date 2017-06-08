@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,24 +22,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rdo-d7-nHZ">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BW4-ix-Anm">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BW4-ix-Anm" secondAttribute="height" multiplier="80:11" id="aYH-ic-fyk"/>
+                                </constraints>
                                 <items>
-                                    <barButtonItem id="JtG-1a-xqR"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="UlK-Jf-ah4"/>
-                                    <barButtonItem title="New" id="cf0-zO-jXr">
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="QT6-f1-zFP"/>
+                                    <barButtonItem title="New" id="1z1-9J-PQf">
                                         <connections>
-                                            <action selector="creatNewSnippet:" destination="BYZ-38-t0r" id="pxD-1i-zBh"/>
+                                            <action selector="creatNewSnippet:" destination="BYZ-38-t0r" id="JRM-eB-CMb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xIC-y7-dqK"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kEa-aT-crS"/>
                                 </items>
-                                <color key="tintColor" red="0.17371690387639779" green="0.65719068044523787" blue="0.99246704578399658" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rdo-d7-nHZ" secondAttribute="bottom" id="q2j-ZZ-ZLC"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BW4-ix-Anm" secondAttribute="bottom" id="zCh-K8-BFr"/>
                         </constraints>
                     </view>
                 </viewController>
