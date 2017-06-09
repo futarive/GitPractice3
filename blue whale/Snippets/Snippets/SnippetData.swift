@@ -7,8 +7,19 @@
 //
 
 import Foundation
+
+enum SnippetType:String {
+    case text = "Text"
+    case photo = "Photo"
+}
+
 struct SnippetData{
-    init(){
-        print("new snippet created")
+    
+    let type:SnippetType
+    
+    init (snippetType:SnippetType) {
+        
+        type = snippetType
+        print("\(type.rawValue) snippet created")
     }
 }
