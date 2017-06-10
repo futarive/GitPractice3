@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     @IBAction func creatNewSnippet(_ sender: AnyObject) {
@@ -22,7 +21,7 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "Select a snippet type!",message:nil,preferredStyle:.actionSheet)
         
         let textAction =  UIAlertAction(title:"Text",style:.default) {
-            (alert:UIAlertAction!)->Void in self.data.append(SnippetData(snippetType:.text))
+            (alert:UIAlertAction!)->Void in self.creatNewTextSnippet()
         }
         
         let photoAction =  UIAlertAction(title:"Photo",style:.default) {
@@ -36,5 +35,22 @@ class ViewController: UIViewController {
         present(alert,animated: true,completion: nil)
     }
     
+    func creatNewTextSnippet() {
+        guard let textEntryVC = storyboard?.instantiateViewController(withIdentifier:"textSnipperEntry") as? TextSnippetEntryViewController
+            else {
+                print("TextSnippetEntryViewController could not be instantiated from storyborad")
+                return
+        }
+    
+    textEntryVC.modalTransitionStyle = .coverVertical
+    
+    textEntryVC.saveText = { (text:String ) in
+      let newTextSnippet = TextData(text:text)
+        
+      self.data.append(newTextSnippet)
+    }
+    
+    present(textEntryVC,animated:true,completion:nil)
+  }
 }
 

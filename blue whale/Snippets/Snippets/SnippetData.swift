@@ -13,7 +13,7 @@ enum SnippetType:String {
     case photo = "Photo"
 }
 
-struct SnippetData{
+ class SnippetData{
     
     let type:SnippetType
     
@@ -21,5 +21,14 @@ struct SnippetData{
         
         type = snippetType
         print("\(type.rawValue) snippet created")
+    }
+}
+class TextData:SnippetData {
+    let textData:String
+    
+    init(text:String) {
+        textData = text
+        super.init(snippetType: .text)
+        print("Text snippet data:\(textData)")
     }
 }
