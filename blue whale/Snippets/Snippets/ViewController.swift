@@ -36,11 +36,11 @@ class ViewController: UIViewController {
     }
     
     func creatNewTextSnippet() {
-        guard let textEntryVC = storyboard?.instantiateViewController(withIdentifier:"textSnipperEntry") as? TextSnippetEntryViewController
+        guard let textEntryVC = storyboard?.instantiateViewController(withIdentifier:"textSnippetEntry") as? TextSnippetEntryViewController
             else {
                 print("TextSnippetEntryViewController could not be instantiated from storyborad")
                 return
-        }
+           }
     
     textEntryVC.modalTransitionStyle = .coverVertical
     
