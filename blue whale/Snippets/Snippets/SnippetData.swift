@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum SnippetType:String {
     case text = "Text"
@@ -32,3 +33,13 @@ class TextData:SnippetData {
         print("Text snippet data:\(textData)")
     }
 }
+class PhotoData:SnippetData{
+    let photoData:UIImage
+    
+    init(photo:UIImage) {
+        photoData = photo
+        super.init(snippetType: .photo)
+        print("Photo snippet data:\(photoData)")
+    }
+}
+
