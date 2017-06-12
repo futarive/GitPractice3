@@ -53,7 +53,7 @@
                                             <outlet property="label" destination="abM-GY-BL6" id="rwB-cZ-M1X"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoSnippetCel" id="iRG-wf-SCz" customClass="PhotoSnippetCell" customModule="Snippets" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoSnippetCell" id="iRG-wf-SCz" customClass="PhotoSnippetCell" customModule="Snippets" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRG-wf-SCz" id="mj5-j8-UvX" customClass="PhotoSnippetCell" customModule="Snippets" customModuleProvider="target">
