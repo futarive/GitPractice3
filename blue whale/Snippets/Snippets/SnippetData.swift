@@ -34,11 +34,14 @@ class TextData:SnippetData {
     }
 }
 class PhotoData:SnippetData{
+    
     let photoData:UIImage
     
     init(photo:UIImage) {
+        
         photoData = photo
         super.init(snippetType: .photo)
+        
         print("Photo snippet data:\(photoData)")
     }
 }

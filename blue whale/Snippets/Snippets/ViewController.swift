@@ -12,11 +12,18 @@ class ViewController: UIViewController {
 
     var data:[SnippetData] = [SnippetData] ()
     let imagePicker = UIImagePickerController()
+    @IBOutlet weak var tableView:UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-    }
+        
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+       }
+    override func viewWillAppear(_ animated:Bool) {
+        tableView.reloadData()
+       }
 
     @IBAction func creatNewSnippet(_ sender: AnyObject) {
         
@@ -42,7 +49,7 @@ class ViewController: UIViewController {
             else {
                 print("TextSnippetEntryViewController could not be instantiated from storyborad")
                 return
-           }
+                 }
     
     textEntryVC.modalTransitionStyle = .coverVertical
     
@@ -50,7 +57,7 @@ class ViewController: UIViewController {
       let newTextSnippet = TextData(text:text)
         
       self.data.append(newTextSnippet)
-    }
+        }
     
     present(textEntryVC,animated:true,completion:nil)
   }
@@ -60,20 +67,53 @@ class ViewController: UIViewController {
             print("Camera is not available")
             return
         }
+        
     imagePicker.allowsEditing = true
     imagePicker.sourceType = .camera
+        
     present(imagePicker,animated: true,completion: nil)
+        
     }
 }
+
 extension ViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
-    func imagePicekerController(_ picker:UIImagePickerController,didFinishPickingMediaWithInfo info:[String:Any]) {
+    
+    func imagePickerController(_ picker:UIImagePickerController,didFinishPickingMediaWithInfo info: [String:Any]) {
         guard let image = info [UIImagePickerControllerEditedImage] as? UIImage else {
             print("Image could not be found")
             return
         }
     let newPhotoSnippet = PhotoData(photo:image)
+        
     self.data.append(newPhotoSnippet)
+        
     dismiss(animated:true,completion:nil)
     }
 }
 
+extension ViewController:UITableViewDataSource {
+    
+    func numberOfSections(in tableView:UITableView) ->Int {
+        return 1
+        }
+    func tableView(_ tableView:UITableView,numberOfRowsInSection section:Int) ->Int{
+       return data.count
+    }
+    
+    func tableView(_ tableView:UITableView,cellForRowAt indexPath:IndexPath) ->UITableViewCell {
+        let cell:UITableViewCell
+        
+        let sortedData = data.reversed() as [SnippetData]
+        let snippetData = sortedData[indexPath.row]
+        
+        switch snippetData.type {
+        case .text:
+            cell = tableView.dequeueReusableCell(withIdentifier:"textSnippetCell",for:indexPath)
+            (cell as! TextSnippetCell).label.text = (snippetData as! TextData).textData
+        case .photo:
+            cell = tableView.dequeueReusableCell(withIdentifier: "photoSnippetCell",for:indexPath)
+            (cell as! PhotoSnippetCell).photo.image = (snippetData as! PhotoData).photoData
+        }
+        return cell
+    }
+}
