@@ -56,23 +56,23 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoSnippetCell" id="iRG-wf-SCz" customClass="PhotoSnippetCell" customModule="Snippets" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRG-wf-SCz" id="mj5-j8-UvX" customClass="PhotoSnippetCell" customModule="Snippets" customModuleProvider="target">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="iRG-wf-SCz" id="mj5-j8-UvX" customClass="PhotoSnippetCell" customModule="Snippets" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Oz-6C-sHR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Oz-6C-sHR">
+                                                    <rect key="frame" x="0.0" y="12" width="320" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="3Oz-6C-sHR" secondAttribute="height" multiplier="1:1" id="9Kk-kD-eJ1"/>
+                                                        <constraint firstAttribute="width" secondItem="3Oz-6C-sHR" secondAttribute="height" multiplier="55:6" id="aWd-do-aGd"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="3Oz-6C-sHR" firstAttribute="leading" secondItem="mj5-j8-UvX" secondAttribute="leading" id="6o2-5a-Ivy"/>
-                                                <constraint firstItem="3Oz-6C-sHR" firstAttribute="top" secondItem="mj5-j8-UvX" secondAttribute="top" id="BET-jM-hZm"/>
-                                                <constraint firstAttribute="bottom" secondItem="3Oz-6C-sHR" secondAttribute="bottom" id="kxa-dW-fu4"/>
-                                                <constraint firstAttribute="trailing" secondItem="3Oz-6C-sHR" secondAttribute="trailing" id="qZB-cj-Osf"/>
-                                                <constraint firstItem="3Oz-6C-sHR" firstAttribute="centerX" secondItem="mj5-j8-UvX" secondAttribute="centerX" id="qZp-hD-9jW"/>
+                                                <constraint firstAttribute="bottom" secondItem="3Oz-6C-sHR" secondAttribute="bottom" id="ZPc-XX-UZr"/>
+                                                <constraint firstItem="3Oz-6C-sHR" firstAttribute="top" secondItem="mj5-j8-UvX" secondAttribute="top" id="c0q-F9-WGZ"/>
+                                                <constraint firstItem="3Oz-6C-sHR" firstAttribute="leading" secondItem="mj5-j8-UvX" secondAttribute="leading" id="hef-uh-v2j"/>
+                                                <constraint firstAttribute="trailing" secondItem="3Oz-6C-sHR" secondAttribute="trailing" id="idG-SA-llT"/>
+                                                <constraint firstItem="3Oz-6C-sHR" firstAttribute="centerX" secondItem="mj5-j8-UvX" secondAttribute="centerX" id="jc5-xV-vr0"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
