@@ -14,33 +14,37 @@ enum SnippetType:String {
     case photo = "Photo"
 }
 
- class SnippetData{
+class SnippetData{
     
     let type:SnippetType
+    let date:Date
     
-    init (snippetType:SnippetType) {
+    init (snippetType:SnippetType,creationDate:Date) {
         
         type = snippetType
-        print("\(type.rawValue) snippet created")
+        date = creationDate
+        print("\(type.rawValue) snippet created at \(date)")
     }
 }
+
 class TextData:SnippetData {
     let textData:String
     
-    init(text:String) {
+    init(text:String,creationDate:Date) {
         textData = text
-        super.init(snippetType: .text)
+        super.init(snippetType: .text,creationDate: creationDate)
         print("Text snippet data:\(textData)")
     }
 }
+
 class PhotoData:SnippetData{
     
     let photoData:UIImage
     
-    init(photo:UIImage) {
+    init(photo:UIImage,creationDate:Date) {
         
         photoData = photo
-        super.init(snippetType: .photo)
+        super.init(snippetType: .photo,creationDate: creationDate)
         
         print("Photo snippet data:\(photoData)")
     }
