@@ -27,17 +27,17 @@ class ViewController: UIViewController {
 
     @IBAction func creatNewSnippet(_ sender: AnyObject) {
         
-        let alert = UIAlertController(title: "Select a snippet type!",message:nil,preferredStyle:.actionSheet)
+        let alert = UIAlertController(title: "请选择创建项目类型",message:nil,preferredStyle:.actionSheet)
         
-        let textAction =  UIAlertAction(title:"Text",style:.default) {
+        let textAction =  UIAlertAction(title:"文本",style:.default) {
             (alert:UIAlertAction!)->Void in self.creatNewTextSnippet()
         }
         
-        let photoAction =  UIAlertAction(title:"Photo",style:.default) {
+        let photoAction =  UIAlertAction(title:"图像",style:.default) {
             (alert:UIAlertAction!)->Void in self.creatNewPhotoSnippet()
         }
         
-        let cancelAction = UIAlertAction(title:"Cancel",style:.cancel,handler:nil)
+        let cancelAction = UIAlertAction(title:"取消",style:.cancel,handler:nil)
         alert.addAction(textAction)
         alert.addAction(photoAction)
         alert.addAction(cancelAction)
@@ -118,6 +118,7 @@ extension ViewController:UITableViewDataSource {
         case .photo:
             cell = tableView.dequeueReusableCell(withIdentifier: "photoSnippetCell",for:indexPath)
             (cell as! PhotoSnippetCell).photo.image = (snippetData as! PhotoData).photoData
+            (cell as! PhotoSnippetCell).date.text = dateString
         }
         return cell
     }

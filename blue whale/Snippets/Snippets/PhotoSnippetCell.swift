@@ -12,4 +12,6 @@ class PhotoSnippetCell:UITableViewCell {
     
     @IBOutlet var photo:UIImageView!
     
+    @IBOutlet var date:UILabel!
+    
 }
