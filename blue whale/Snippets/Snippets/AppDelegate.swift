@@ -12,8 +12,44 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    enum ShortcutItems:String {
+        case newText = "com.PacktPub.Snippets.createTextSnippet"
+        case newPhoto = "com.PacktPub.Snippets.createPhotoSnippet"
+    }
+    func handleShortcut(_ shortcutItem:UIApplicationShortcutItem) {
+        
+        switch shortcutItem.type{
+        case ShortcutItems.newText.rawValue: let vc = self.window!.rootViewController as! ViewController
+        vc.creatNewTextSnippet()
+        case ShortcutItems.newPhoto.rawValue: let vc = self.window!.rootViewController as! ViewController
+        vc.creatNewPhotoSnippet()
+        default: break
+            
+        }
+    
+    func application(_ application:UIApplication,performActionFor shortcutItem:UIApplicationShortcutItem,completionHandler:@escaping(Bool) -> Void) {
+        
+        let vc = self.window!.rootViewController!
+        
+        if vc.presentationController != nil {
+            let alert = UIAlertController(title:"Unfinished Snippet",message:"Do you want to continue creating this snippet, or erase and start a new snippet?",preferredStyle:.alert)
+            let continueAction = UIAlertAction(title:"Continue",style:.default,handler:nil)
+            let eraseAction = UIAlertAction(title:"Erase",style:.destructive) {
+                (alert:UIAlertAction!) -> Void in vc.dismiss(animated: true, completion: nil)
+                self.handleShortcut(shortcutItem)
+            }
+            alert.addAction(continueAction)
+            alert.addAction(eraseAction)
+            vc.presentedViewController!.present(alert,animated: true,completion: nil)
+        } else {
+              handleShortcut(shortcutItem)
+                }
 
+          }
+    }
 
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
