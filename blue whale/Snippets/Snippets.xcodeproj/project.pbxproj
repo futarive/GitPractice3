@@ -14,6 +14,7 @@
 		BE6AD5A71EE99E6400677B58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE6AD5A51EE99E6400677B58 /* LaunchScreen.storyboard */; };
 		BE6AD5AF1EE99F2800677B58 /* SnippetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6AD5AE1EE99F2800677B58 /* SnippetData.swift */; };
 		BE7CD2241EEB86A200408923 /* TextSnippetEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7CD2231EEB86A200408923 /* TextSnippetEntryViewController.swift */; };
+		BEB0C6121EF6B55000964C4E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB0C6111EF6B55000964C4E /* CoreLocation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		BEE4E3B31EEC360400C651E6 /* TextSnippetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4E3B21EEC360400C651E6 /* TextSnippetCell.swift */; };
 		BEE4E3B51EEC366500C651E6 /* PhotoSnippetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4E3B41EEC366500C651E6 /* PhotoSnippetCell.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		BE6AD5A81EE99E6400677B58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE6AD5AE1EE99F2800677B58 /* SnippetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnippetData.swift; sourceTree = "<group>"; };
 		BE7CD2231EEB86A200408923 /* TextSnippetEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSnippetEntryViewController.swift; sourceTree = "<group>"; };
+		BEB0C6111EF6B55000964C4E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BEE4E3B21EEC360400C651E6 /* TextSnippetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSnippetCell.swift; sourceTree = "<group>"; };
 		BEE4E3B41EEC366500C651E6 /* PhotoSnippetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSnippetCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEB0C6121EF6B55000964C4E /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +51,7 @@
 			children = (
 				BE6AD59B1EE99E6400677B58 /* Snippets */,
 				BE6AD59A1EE99E6400677B58 /* Products */,
+				BEB0C6101EF6B55000964C4E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +78,14 @@
 				BE6AD5A81EE99E6400677B58 /* Info.plist */,
 			);
 			path = Snippets;
+			sourceTree = "<group>";
+		};
+		BEB0C6101EF6B55000964C4E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BEB0C6111EF6B55000964C4E /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

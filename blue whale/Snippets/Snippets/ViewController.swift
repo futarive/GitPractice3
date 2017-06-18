@@ -7,25 +7,41 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ViewController: UIViewController {
 
     var data:[SnippetData] = [SnippetData] ()
     let imagePicker = UIImagePickerController()
+    let locationManager = CLLocationManager()
+    var currentCoordinate:CLLocationCoordinate2D?
+    
     @IBOutlet weak var tableView:UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        locationManager.distanceFilter = 50.0
         
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-       }
+        askForLocationPermissions()
+          }
+    
     override func viewWillAppear(_ animated:Bool) {
         tableView.reloadData()
        }
+    
+    func askForLocationPermissions(){
+        if CLLocationManager.authorizationStatus() == .notDetermined{
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
 
-    @IBAction func creatNewSnippet(_ sender: AnyObject) {
+      @IBAction func creatNewSnippet(_ sender: AnyObject) {
         
         let alert = UIAlertController(title: "请选择创建项目类型",message:nil,preferredStyle:.actionSheet)
         
@@ -121,5 +137,23 @@ extension ViewController:UITableViewDataSource {
             (cell as! PhotoSnippetCell).date.text = dateString
         }
         return cell
+    }
+}
+extension ViewController:CLLocationManagerDelegate{
+    
+    func locationManager(_ manager:CLLocationManager,didChangeAuthorization status:CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+               }
+          }
+    func locationManager(_ manager:CLLocationManager,didFailWithError error:Error) {
+        print("Location manager could not get location. Error:\(error.localizedDescription)")
+    }
+    
+    func locationManger(_ manager:CLLocationManager,didUpdateLocation locations:[CLLocation]) {
+        if let currentLocation = locations.last {
+            currentCoordinate = currentLocation.coordinate
+            print("\(currentCoordinate!.latitude),\(currentCoordinate!.longitude)")
+        }
     }
 }
