@@ -13,6 +13,7 @@
 		BE6AD5A41EE99E6400677B58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE6AD5A31EE99E6400677B58 /* Assets.xcassets */; };
 		BE6AD5A71EE99E6400677B58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE6AD5A51EE99E6400677B58 /* LaunchScreen.storyboard */; };
 		BE6AD5AF1EE99F2800677B58 /* SnippetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6AD5AE1EE99F2800677B58 /* SnippetData.swift */; };
+		BE77517F1EF8186F00DC9734 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE77517E1EF8186F00DC9734 /* Social.framework */; };
 		BE7CD2241EEB86A200408923 /* TextSnippetEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7CD2231EEB86A200408923 /* TextSnippetEntryViewController.swift */; };
 		BEB0C6121EF6B55000964C4E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB0C6111EF6B55000964C4E /* CoreLocation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		BEE4E3B31EEC360400C651E6 /* TextSnippetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4E3B21EEC360400C651E6 /* TextSnippetCell.swift */; };
@@ -28,6 +29,7 @@
 		BE6AD5A61EE99E6400677B58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE6AD5A81EE99E6400677B58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE6AD5AE1EE99F2800677B58 /* SnippetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnippetData.swift; sourceTree = "<group>"; };
+		BE77517E1EF8186F00DC9734 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		BE7CD2231EEB86A200408923 /* TextSnippetEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSnippetEntryViewController.swift; sourceTree = "<group>"; };
 		BEB0C6111EF6B55000964C4E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BEE4E3B21EEC360400C651E6 /* TextSnippetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSnippetCell.swift; sourceTree = "<group>"; };
@@ -39,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE77517F1EF8186F00DC9734 /* Social.framework in Frameworks */,
 				BEB0C6121EF6B55000964C4E /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,6 +86,7 @@
 		BEB0C6101EF6B55000964C4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE77517E1EF8186F00DC9734 /* Social.framework */,
 				BEB0C6111EF6B55000964C4E /* CoreLocation.framework */,
 			);
 			name = Frameworks;

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Social
 
 class ViewController: UIViewController {
 
@@ -131,10 +132,53 @@ extension ViewController:UITableViewDataSource {
             cell = tableView.dequeueReusableCell(withIdentifier:"textSnippetCell",for:indexPath)
             (cell as! TextSnippetCell).label.text = (snippetData as! TextData).textData
             (cell as! TextSnippetCell).date.text = dateString
+            (cell as! TextSnippetCell).shareButton = {
+                if SLComposeViewController.isAvailable(forServiceType:SLServiceTypeSinaWeibo) {
+                    let text = (snippetData as! TextData).textData
+                    guard let twVC = SLComposeViewController(forServiceType:SLServiceTypeSinaWeibo)
+                           else {
+                        print("Couldn't create weibo compose controller")
+                           return
+                                }
+                    if text.characters.count <= 140 {
+                       twVC.setInitialText("\(text)")
+                        } else {
+                          let weiboLengthIndex = text.index(text.startIndex,offsetBy:140)
+                          let weiboChars = text.substring(to: weiboLengthIndex)
+                          twVC.setInitialText("\(weiboChars)")
+                        }
+                          self.present(twVC,animated:true,completion:nil)
+                     }
+                else {
+                    let alert = UIAlertController(title:"You are not logged into weixin",message:"Please log into weixin from the ios settings app.",preferredStyle:.alert)
+                    let dismissAction = UIAlertAction(title:"OK",style:.default,handler:nil)
+                    alert.addAction(dismissAction)
+                    self.present(alert,animated: true,completion:nil)
+                     }
+            }
         case .photo:
             cell = tableView.dequeueReusableCell(withIdentifier: "photoSnippetCell",for:indexPath)
             (cell as! PhotoSnippetCell).photo.image = (snippetData as! PhotoData).photoData
             (cell as! PhotoSnippetCell).date.text = dateString
+            (cell as! PhotoSnippetCell).shareButton = {
+                if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeSinaWeibo) {
+                    let photo = (snippetData as! PhotoData).photoData
+                    guard let twVC = SLComposeViewController(forServiceType:SLServiceTypeSinaWeibo)
+                        else {
+                            print("Couldn't create weibo compose controller")
+                            return
+                    }
+                    twVC.setInitialText("sent from SnippetsTM")
+                    twVC.add(photo)
+                    self.present(twVC,animated: true,completion:nil)
+                }
+                else{
+                    let alert = UIAlertController(title:"You are not logged into weixin",message:"Please log into weixin from the ios settings app.",preferredStyle:.alert)
+                    let dismissAction = UIAlertAction(title:"OK",style:.default,handler:nil)
+                    alert.addAction(dismissAction)
+                    self.present(alert,animated: true,completion:nil)
+                }
+            }
         }
         return cell
     }

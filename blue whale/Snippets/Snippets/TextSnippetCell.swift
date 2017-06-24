@@ -10,8 +10,16 @@ import UIKit
 
 class TextSnippetCell:UITableViewCell {
     
+    var shareButton:(() -> Void)?
+    
     @IBOutlet var label:UILabel!
     
     @IBOutlet var date:UILabel!
+    
+    @IBAction func shareButtonPressed(_ sender: UIButton) {
+        if let callback = shareButton{
+              callback()
+        }
+    }
 }
 
