@@ -9,10 +9,11 @@
 import UIKit
 import CoreLocation
 import Social
+import CoreData
 
 class ViewController: UIViewController {
 
-    var data:[SnippetData] = [SnippetData] ()
+    var data = [NSManagedObject] ()
     let imagePicker = UIImagePickerController()
     let locationManager = CLLocationManager()
     var currentCoordinate:CLLocationCoordinate2D?
@@ -91,6 +92,22 @@ class ViewController: UIViewController {
     present(imagePicker,animated: true,completion: nil)
         
     }
+    
+    func saveTextSnippet(text:String) {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = delegate.managedObjectContext
+        let desc = NSEntityDescription.entity(forEntityName: "TextSnippet",in: managedContext)
+        let textSnippet = NSManagedObject(entity:desc!,insertInto:managedContext)
+        textSnippet.setValue(SnippetType.text.rawValue,forKey:"type")
+        textSnippet.setValue(text,forKey:"text")
+        textSnippet.setValue(NSDate(),forKey: "date")
+        if let coord = self.currentCoordinate{
+            textSnippet.setValue(coord.latitude,forKey:"latitude")
+            textSnippet.setValue(coord.longitude,forKey:"longitude")
+        }
+        delegate.saveContext()
+    }
+    
 }
 
 extension ViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
@@ -120,7 +137,7 @@ extension ViewController:UITableViewDataSource {
     func tableView(_ tableView:UITableView,cellForRowAt indexPath:IndexPath) ->UITableViewCell {
         let cell:UITableViewCell
         
-        let sortedData = data.reversed() as [SnippetData]
+        let sortedData = data.reversed() as [NSManagedObject]
         let snippetData = sortedData[indexPath.row]
         
         let formatter =  DateFormatter()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -75,8 +76,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        self.saveContext()
+        
     }
-
-
+    
+    //mark: -core data stack
+    lazy var managedObjectModel:NSManagedObjectModel = {
+        let modelURL = Bundle.main.url(forResource:"SnippetData",withExtension:"momd")!
+        return
+            NSManagedObjectModel(contentsOf:modelURL)!
+    } ()
+    
+    lazy var persistentStoreCoordinator:NSPersistentStoreCoordinator = {
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel:self.managedObjectModel)
+        let urls = FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)
+        let url = urls.last!.appendingPathComponent("SingleViewCoreData.sqlite")
+        do {
+            try coordinator.addPersistentStore(ofType:NSSQLiteStoreType,configurationName:nil,at:url,options:nil)
+        } catch {
+            let nserror = error as NSError
+            print("Unresolved error \(nserror),\(nserror.userInfo)")
+            abort()
+        }
+        return coordinator
+    }()
+    
+    lazy var managedObjectContext:NSManagedObjectContext = {
+        let coordinator = self.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType:.mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    } ()
+    
+    //mark:- Core Data Saving support
+    func saveContext(){
+        if managedObjectContext.hasChanges{
+            do {
+                try managedObjectContext.save()
+            } catch {
+                let nserror = error as NSError
+                print("Unresolved error \(nserror),\(nserror.userInfo)")
+                abort()
+            }
+        }
+    }
 }
 
