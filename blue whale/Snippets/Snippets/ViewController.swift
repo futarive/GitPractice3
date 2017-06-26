@@ -34,8 +34,26 @@ class ViewController: UIViewController {
           }
     
     override func viewWillAppear(_ animated:Bool) {
+        reloadSnippetData()
         tableView.reloadData()
        }
+    
+    func reloadSnippetData() {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = delegate.managedObjectContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName:"Snippet")
+        let sortDescriptor = NSSortDescriptor(key:"date",ascending:false)
+        request.sortDescriptors = [sortDescriptor]
+        
+        do {
+            let fetchResults = try managedContext.fetch(request)
+            self.data = fetchResults as! [NSManagedObject]
+        } catch {
+            let e = error as NSError
+            print("Unresolved error \(e),\(e.userInfo)")
+        }
+    }
     
     func askForLocationPermissions(){
         if CLLocationManager.authorizationStatus() == .notDetermined{
@@ -72,10 +90,7 @@ class ViewController: UIViewController {
     textEntryVC.modalTransitionStyle = .coverVertical
     
     textEntryVC.saveText = { (text:String ) in
-        let newTextSnippet = TextData(text:text,creationDate:Date())
-        
-      self.data.append(newTextSnippet)
-        }
+        self.saveTextSnippet(text: text)        }
     
     present(textEntryVC,animated:true,completion:nil)
   }
@@ -104,6 +119,22 @@ class ViewController: UIViewController {
         if let coord = self.currentCoordinate{
             textSnippet.setValue(coord.latitude,forKey:"latitude")
             textSnippet.setValue(coord.longitude,forKey:"longitude")
+          }
+        delegate.saveContext()
+    }
+    
+    func savePhotoSnippet(photo:UIImage) {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = delegate.managedObjectContext
+        let desc = NSEntityDescription.entity(forEntityName: "PhotoSnippet",in:managedContext)
+        let photoSnippet = NSManagedObject(entity:desc!,insertInto:managedContext)
+        let photoData = UIImagePNGRepresentation(photo)
+        photoSnippet.setValue(SnippetType.photo.rawValue,forKey:"type")
+        photoSnippet.setValue(photoData,forKey:"photo")
+        photoSnippet.setValue(Date(),forKey:"date")
+        if let coord = self.currentCoordinate{
+            photoSnippet.setValue(coord.latitude,forKey:"latitude")
+            photoSnippet.setValue(coord.longitude,forKey:"longitude")
         }
         delegate.saveContext()
     }
@@ -117,9 +148,7 @@ extension ViewController:UIImagePickerControllerDelegate,UINavigationControllerD
             print("Image could not be found")
             return
         }
-        let newPhotoSnippet = PhotoData(photo:image,creationDate:Date())
-        
-    self.data.append(newPhotoSnippet)
+        savePhotoSnippet(photo:image)
         
     dismiss(animated:true,completion:nil)
     }
@@ -134,24 +163,40 @@ extension ViewController:UITableViewDataSource {
        return data.count
     }
     
+    func tableView(_ tableView:UITableView,commit editingStyle:UITableViewCellEditingStyle,forRowAt indexPath: IndexPath) {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = delegate.managedObjectContext
+        
+        let currentObject = data[indexPath.row]
+        managedContext.delete(currentObject)
+        delegate.saveContext()
+        reloadSnippetData()
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
+    }
+    
     func tableView(_ tableView:UITableView,cellForRowAt indexPath:IndexPath) ->UITableViewCell {
         let cell:UITableViewCell
         
-        let sortedData = data.reversed() as [NSManagedObject]
-        let snippetData = sortedData[indexPath.row]
+        let snippetData = data[indexPath.row]
+        let snippetDate = snippetData.value(forKey:"date") as! Date
+        let snippetType = SnippetType(rawValue:snippetData.value(forKey:"type") as! String)!
         
         let formatter =  DateFormatter()
         formatter.dateFormat = "MMM d,yyy hh:mm a"
-        let dateString = formatter.string(from: snippetData.date)
+        let dateString = formatter.string(from: snippetDate)
         
-        switch snippetData.type {
+        switch snippetType {
         case .text:
-            cell = tableView.dequeueReusableCell(withIdentifier:"textSnippetCell",for:indexPath)
-            (cell as! TextSnippetCell).label.text = (snippetData as! TextData).textData
+            let snippetText = snippetData.value(forKey:"text") as! String
+            cell = tableView.dequeueReusableCell(withIdentifier:"textSnippetCell",for:indexPath) as! TextSnippetCell
+            
+            (cell as! TextSnippetCell).label.text = snippetText
             (cell as! TextSnippetCell).date.text = dateString
             (cell as! TextSnippetCell).shareButton = {
                 if SLComposeViewController.isAvailable(forServiceType:SLServiceTypeSinaWeibo) {
-                    let text = (snippetData as! TextData).textData
+                    let text = snippetText
                     guard let twVC = SLComposeViewController(forServiceType:SLServiceTypeSinaWeibo)
                            else {
                         print("Couldn't create weibo compose controller")
@@ -174,12 +219,14 @@ extension ViewController:UITableViewDataSource {
                      }
             }
         case .photo:
+            let snippetPhoto = UIImage(data:snippetData.value(forKey:"photo") as! Data )
             cell = tableView.dequeueReusableCell(withIdentifier: "photoSnippetCell",for:indexPath)
-            (cell as! PhotoSnippetCell).photo.image = (snippetData as! PhotoData).photoData
+            
+            (cell as! PhotoSnippetCell).photo.image = snippetPhoto
             (cell as! PhotoSnippetCell).date.text = dateString
             (cell as! PhotoSnippetCell).shareButton = {
                 if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeSinaWeibo) {
-                    let photo = (snippetData as! PhotoData).photoData
+                    let photo = snippetPhoto
                     guard let twVC = SLComposeViewController(forServiceType:SLServiceTypeSinaWeibo)
                         else {
                             print("Couldn't create weibo compose controller")
