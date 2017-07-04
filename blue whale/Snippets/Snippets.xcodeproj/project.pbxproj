@@ -29,6 +29,7 @@
 		BEB0C6121EF6B55000964C4E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB0C6111EF6B55000964C4E /* CoreLocation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		BEE4E3B31EEC360400C651E6 /* TextSnippetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4E3B21EEC360400C651E6 /* TextSnippetCell.swift */; };
 		BEE4E3B51EEC366500C651E6 /* PhotoSnippetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4E3B41EEC366500C651E6 /* PhotoSnippetCell.swift */; };
+		BEE63A5C1F0A94510040826C /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE63A5B1F0A94510040826C /* WatchConnectivity.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		BEB0C6111EF6B55000964C4E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BEE4E3B21EEC360400C651E6 /* TextSnippetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSnippetCell.swift; sourceTree = "<group>"; };
 		BEE4E3B41EEC366500C651E6 /* PhotoSnippetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSnippetCell.swift; sourceTree = "<group>"; };
+		BEE63A5B1F0A94510040826C /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEE63A5C1F0A94510040826C /* WatchConnectivity.framework in Frameworks */,
 				BE4D66FD1EFFE4C400BBEA2B /* CoreData.framework in Frameworks */,
 				BE77517F1EF8186F00DC9734 /* Social.framework in Frameworks */,
 				BEB0C6121EF6B55000964C4E /* CoreLocation.framework in Frameworks */,
@@ -188,6 +191,7 @@
 		BEB0C6101EF6B55000964C4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BEE63A5B1F0A94510040826C /* WatchConnectivity.framework */,
 				BE4D66FC1EFFE4C400BBEA2B /* CoreData.framework */,
 				BE77517E1EF8186F00DC9734 /* Social.framework */,
 				BEB0C6111EF6B55000964C4E /* CoreLocation.framework */,

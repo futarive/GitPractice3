@@ -8,13 +8,22 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController,WCSessionDelegate {
 
+    var session:WCSession?
+    
+    func session( _ session:WCSession,activationDidCompleteWith activationState:WCSessionActivationState,error:Error?){
+            return
+    }
+    
        override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
+        session = WCSession.default()
+        session?.delegate = self
+        session?.activate()
     }
     
     @IBAction func createNewTextSnippet() {
@@ -29,6 +38,12 @@ class InterfaceController: WKInterfaceController {
         guard let r = results?[0],let string = r as? String else{
         return
         }
-        pushController(withName:"confirmation",context:nil)
+        let processText = {
+            (text:String) in let info = ["textData":text]
+            self.session?.sendMessage(info,replyHandler:nil,errorHandler:nil)
+        }
+        let confirmContext = ConfirmationContext(textString:string,confirmAction:processText,tryAgainAction:tryToGetText)
+        
+        pushController(withName:"confirmation",context:confirmContext)
     }
 }

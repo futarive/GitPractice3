@@ -8,12 +8,32 @@
 
 import UIKit
 import CoreData
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,WCSessionDelegate {
 
     var window: UIWindow?
+    var session:WCSession?
     
+    func session(_ session:WCSession,activationDidCompleteWith activationState:WCSessionActivationState,error:Error?) {
+        return
+    }
+    func sessionDidBecomeInactive(_ session:WCSession) {
+        return
+    }
+    func sessionDidDeactivate(_ session:WCSession) {
+        return
+    }
+    func session(_ session:WCSession,didReceiveMessage message:[String:Any]) {
+        if let textData = message["textData"] as? String,let vc = self.window!.rootViewController! as? ViewController {
+            DispatchQueue.main.async(execute:{
+                vc.saveTextSnippet(text: textData)
+                vc.reloadSnippetData()
+                vc.tableView.reloadData()
+            })
+        }
+    }
     enum ShortcutItems:String {
         case newText = "com.PacktPub.Snippets.createTextSnippet"
         case newPhoto = "com.PacktPub.Snippets.createPhotoSnippet"
@@ -51,8 +71,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
+        
+        if WCSession.isSupported() {
+            session = WCSession.default()
+            session?.delegate = self
+            session?.activate()
+        }
         return true
     }
 

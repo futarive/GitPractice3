@@ -26,12 +26,12 @@ class ConfirmationInterfaceController: WKInterfaceController {
 
     @IBOutlet var resultsLabel: WKInterfaceLabel!
     
-    var currentContext:confirmationContext?
+    var currentContext:ConfirmationContext?
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        if let c = context as? confirmationContext {
+        if let c = context as? ConfirmationContext {
             currentContext = c
             resultsLabel.setText(c.textString)
         }
